@@ -1,0 +1,16 @@
+{
+  "title": "طلبات",
+  "@title": {},
+  "helloWorld": "Hello World! {name} {day}",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      }
+    }
+  }
+}
