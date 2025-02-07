@@ -14,9 +14,14 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   int _counter = 0;
   late final SharedPreferences prefs;
+
   @override
-  void initState() async {
+  void initState() {
     super.initState();
+    _initPrefs();
+  }
+
+  Future<void> _initPrefs() async {
     prefs = await SharedPreferences.getInstance();
   }
 
