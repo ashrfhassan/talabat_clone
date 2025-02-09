@@ -4,14 +4,14 @@ import 'package:talabat_clone/state/user/auth_notifier.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends ConsumerStatefulWidget {
-  const HomePage({super.key});
+class OrdersPage extends ConsumerStatefulWidget {
+  const OrdersPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _OrdersPageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class _OrdersPageState extends ConsumerState<OrdersPage> {
   int _counter = 0;
   late final SharedPreferences prefs;
 
@@ -35,12 +35,10 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(
-          AppLocalizations.of(context)!.helloWorld('ahmed', 'mohamed'),
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-        ),
+        title: Text('orders'),
       ),
       body: Center(
         child: Column(
@@ -55,6 +53,12 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromARGB(90, 96, 5, 242),
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
