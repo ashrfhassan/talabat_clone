@@ -37,6 +37,7 @@ class MyApp extends ConsumerWidget {
           surface: Color.fromARGB(255, 255, 255, 255),
           onSurface: Color.fromARGB(255, 38, 38, 38),
           outline: Color.fromARGB(255, 166, 166, 166),
+          onTertiary: Color.fromARGB(255, 132, 130, 130),
         ),
         textTheme: TextTheme(
           headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black),

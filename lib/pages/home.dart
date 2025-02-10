@@ -38,11 +38,80 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       appBar: AppBar(
         shape: const WavyAppBarShape(),
-        toolbarHeight: 100,
+        toolbarHeight: 130,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text(
-          AppLocalizations.of(context)!.helloWorld('ahmed', 'mohamed'),
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        flexibleSpace: Align(
+          alignment: Alignment.centerLeft,
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Column only takes the necessary space
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
+                    child: TextButton.icon(
+                      onPressed: () {
+                        // Handle the button press
+                        print("TextButton.icon pressed");
+                      },
+                      iconAlignment: IconAlignment.end,
+                      icon: const Icon(
+                        Icons.expand_more,
+                        size: 24,
+                      ),
+                      label: Text(
+                        'Helloooooooooo',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                      ),
+                      style: TextButton.styleFrom(
+                        iconColor: Theme.of(context).colorScheme.onPrimary,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: TextButton.icon(
+                      onPressed: () {
+                        // Handle the button press
+                        print("TextButton.icon pressed");
+                      },
+                      icon: const Icon(Icons.search, size: 24),
+                      label: Text(
+                        'Helloooooooooo',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.lerp(FontWeight.w300, FontWeight.w400, 0.5),
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
+                      ),
+                      style: TextButton.styleFrom(
+                        alignment: Alignment.centerLeft,
+                        iconColor: Theme.of(context).colorScheme.onTertiary,
+                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
       body: Text('hi'),

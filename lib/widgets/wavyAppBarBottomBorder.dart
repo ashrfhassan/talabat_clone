@@ -6,7 +6,7 @@ class WavyAppBarShape extends ContinuousRectangleBorder {
   @override
   Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
     // Adjust these values to control the wave's appearance.
-    const double waveHeight = 8.0;
+    const double waveHeight = 6.0;
     const int waveCount = 3; // Number of waves along the width.
     final double waveWidth = rect.width / waveCount;
 
