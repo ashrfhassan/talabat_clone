@@ -16,17 +16,48 @@ class _StartPageState extends ConsumerState<StartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: widget.navigationShell,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: widget.navigationShell.currentIndex,
-        onTap: (index) {
-          widget.navigationShell.goBranch(index);
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Orders'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Offers'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Account'),
-        ],
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          splashFactory: NoSplash.splashFactory,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface, // Background color of the BottomNavigationBar
+            boxShadow: [
+              // This BoxShadow creates a shadow along the top edge.
+              BoxShadow(
+                color: Theme.of(context).colorScheme.outline,
+                offset: const Offset(0, -1), // Negative offset to position the shadow above
+                blurRadius: 1,
+              ),
+            ],
+          ),
+          child: BottomNavigationBar(
+            currentIndex: widget.navigationShell.currentIndex,
+            onTap: (index) {
+              widget.navigationShell.goBranch(index);
+            },
+            selectedItemColor: Theme.of(context).colorScheme.primary, // Color for the selected icon
+            unselectedItemColor: Theme.of(context).colorScheme.outline,
+            selectedLabelStyle: const TextStyle(
+              fontWeight: FontWeight.bold, // Bold font for selected item
+              fontSize: 12,
+            ),
+            unselectedLabelStyle: const TextStyle(
+              fontWeight: FontWeight.normal, // Normal font for unselected items
+              fontSize: 12,
+            ),
+            type: BottomNavigationBarType.fixed,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.document_scanner_outlined), label: 'Orders'),
+              BottomNavigationBarItem(icon: Icon(Icons.work_outline_outlined), label: 'Offers'),
+              BottomNavigationBarItem(icon: Icon(Icons.person_2), label: 'Account'),
+            ],
+          ),
+        ),
       ),
     );
   }
