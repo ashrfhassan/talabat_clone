@@ -28,7 +28,12 @@ class _StartPageState extends ConsumerState<StartPage> {
             boxShadow: [
               // This BoxShadow creates a shadow along the top edge.
               BoxShadow(
-                color: Theme.of(context).colorScheme.outline,
+                color: Theme.of(context)
+                    .colorScheme
+                    .copyWith(
+                      outline: Color.fromARGB(255, 224, 222, 222),
+                    )
+                    .outline,
                 offset: const Offset(0, -1), // Negative offset to position the shadow above
                 blurRadius: 1,
               ),
