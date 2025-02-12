@@ -13,7 +13,6 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  int _counter = 0;
   late final SharedPreferences prefs;
 
   @override
@@ -26,15 +25,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     prefs = await SharedPreferences.getInstance();
   }
 
-  void _incrementCounter() async {
+  void _action() async {
     await ref.read(authNotifierProvider.notifier).updateAuth();
-    setState(() {
-      _counter++;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    Locale currentLocale = Localizations.localeOf(context);
     return Scaffold(
       appBar: AppBar(
         shape: const WavyAppBarShape(),
@@ -62,7 +59,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         size: 24,
                       ),
                       label: Text(
-                        'Helloooooooooo',
+                        AppLocalizations.of(context)!.address('Rasha'),
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -90,7 +87,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       },
                       icon: const Icon(Icons.search, size: 24),
                       label: Text(
-                        'Helloooooooooo',
+                        AppLocalizations.of(context)!.search_input,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.lerp(FontWeight.w300, FontWeight.w400, 0.5),
@@ -98,13 +95,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                       ),
                       style: TextButton.styleFrom(
-                        alignment: Alignment.centerLeft,
+                        alignment: currentLocale.languageCode == 'ar' ? Alignment.centerRight : Alignment.centerLeft,
                         iconColor: Theme.of(context).colorScheme.onTertiary,
                         backgroundColor: Theme.of(context).colorScheme.surface,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 8,
                         ),
+                      ).copyWith(
+                        // Set overlayColor to transparent to disable the tap effect.
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
                       ),
                     ),
                   ),

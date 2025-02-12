@@ -1,16 +1,15 @@
 {
-  "title": "طلبات",
+  "title": "عنوان طلبات",
   "@title": {},
-  "helloWorld": "Hello World! {name} {day}",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting",
+  "address": "صيدليه {address}",
+  "@address": {
+    "description": "address of the place",
     "placeholders": {
-      "name": {
-        "type": "String"
-      },
-      "day": {
+      "address": {
         "type": "String"
       }
     }
-  }
+  },
+  "search_input": "ابحث عن طعام بقاله و أكثر",
+  "@search_input": {}
 }

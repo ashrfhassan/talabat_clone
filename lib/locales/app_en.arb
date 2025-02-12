@@ -1,16 +1,15 @@
 {
-  "title": "Talabat",
+  "title": "Talabat title",
   "@title": {},
-  "helloWorld": "Hello World! {name} {day}",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting",
+  "address": "Pharmacy {address}",
+  "@address": {
+    "description": "address of the place",
     "placeholders": {
-      "name": {
-        "type": "String"
-      },
-      "day": {
+      "address": {
         "type": "String"
       }
     }
-  }
+  },
+  "search_input": "Search food, groceries and more",
+  "@search_input": {}
 }
