@@ -11,5 +11,7 @@
     }
   },
   "search_input": "ابحث عن طعام بقاله و أكثر",
-  "@search_input": {}
+  "@search_input": {},
+  "home_bottomSheet_headline": "اختر مكان التوصيل",
+  "@home_bottomSheet_headline": {}
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:talabat_clone/style/colors.dart';
 
 class StartPage extends ConsumerStatefulWidget {
   final StatefulNavigationShell navigationShell;
@@ -31,7 +32,7 @@ class _StartPageState extends ConsumerState<StartPage> {
                 color: Theme.of(context)
                     .colorScheme
                     .copyWith(
-                      outline: Color.fromARGB(255, 224, 222, 222),
+                      outline: light_boxShadow_color,
                     )
                     .outline,
                 offset: const Offset(0, -1), // Negative offset to position the shadow above
