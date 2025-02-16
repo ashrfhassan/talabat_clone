@@ -3,9 +3,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:talabat_clone/style/colors.dart';
 import 'package:talabat_clone/style/fonts.dart';
+import 'package:talabat_clone/style/sizes.dart';
+import 'package:talabat_clone/style/spaces.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class BottomModalSheet extends StatelessWidget {
   const BottomModalSheet({super.key});
+
+  final int selectedAddressId = 1;
 
   Future<SharedPreferences> _getPrefs() async {
     return await SharedPreferences.getInstance();
@@ -56,19 +61,75 @@ class BottomModalSheet extends StatelessWidget {
                           width: 0.7,
                         ),
                       ),
-                      child: const Icon(Icons.close, size: 21),
+                      child: Icon(Icons.close, size: mediumSize),
                       onPressed: () => Navigator.pop(context),
                     ),
                   ]),
-                  const SizedBox(height: 10),
+                  SizedBox(height: small),
                   Row(children: <Widget>[
                     Text(
                       AppLocalizations.of(context)!.home_bottomSheet_headline,
-                      style: fontHeadlineBlackHeavy,
+                      style: fontHeadlineBlack,
+                    ),
+                  ]),
+                  SizedBox(height: large),
+                  Row(children: <Widget>[
+                    Text(
+                      AppLocalizations.of(context)!.home_bottomSheet_subtitle,
+                      style: fontSubtitleBlack,
+                    ),
+                  ]),
+                  SizedBox(height: large),
+                  Row(children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: outline_grey_color, // Border color
+                              width: 1.0, // Border thickness
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(Icons.place, size: mediumSize),
+                            Flexible(
+                              // same as expanded
+                              child: Padding(
+                                padding: EdgeInsets.only(left: xSmall),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!.home_bottomSheet_subtitle,
+                                      style: fontNormalTextBlackHeavy,
+                                    ),
+                                    AutoSizeText(
+                                      'ThisIsAVeryLongWordhatNeedsBreakinghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+                                      maxLines: 4,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: fontNormalTextGrey,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            if (selectedAddressId == 1) ...[
+                              Icon(
+                                Icons.check_circle,
+                                size: mediumSize,
+                                color: Theme.of(context).colorScheme.primary,
+                              )
+                            ]
+                          ],
+                        ),
+                      ),
                     )
                   ]),
-                  Row(children: <Widget>[]),
-                  Row(children: <Widget>[]),
                   Row(children: <Widget>[]),
                   Row(children: <Widget>[]),
                   Row(children: <Widget>[]),

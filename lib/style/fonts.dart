@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:talabat_clone/style/colors.dart';
 
-final fontHeadlineBlackHeavy = TextStyle(
+final fontHeadlineWhite = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w600,
+  color: white_color,
+);
+
+final fontHeadlineBlack = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w600,
   color: dark_color,
 );
 
-final fontNormalSubtitleWhiteHeavy = TextStyle(
+final fontSubtitleWhite = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w600,
   color: white_color,
 );
 
-final fontNormalTextBack = TextStyle(
+final fontSubtitleBlack = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+  color: dark_color,
+);
+
+final fontNormalTextBlack = TextStyle(
   fontSize: 14,
+  color: dark_color,
+);
+
+final fontNormalTextBlackHeavy = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
   color: dark_color,
 );
 

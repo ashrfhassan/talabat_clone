@@ -13,5 +13,7 @@
   "search_input": "Search food, groceries and more",
   "@search_input": {},
   "home_bottomSheet_headline": "Choose delivery location",
-  "@home_bottomSheet_headline": {}
+  "@home_bottomSheet_headline": {},
+  "home_bottomSheet_subtitle": "Saved Addresses",
+  "@home_bottomSheet_subtitle": {}
 }

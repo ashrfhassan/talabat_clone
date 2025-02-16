@@ -50,7 +50,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     label: Text(
                       AppLocalizations.of(context)!.address('Rasha'),
-                      style: fontNormalSubtitleWhiteHeavy,
+                      style: fontSubtitleWhite,
                     ),
                     style: TextButton.styleFrom(
                       iconColor: Theme.of(context).colorScheme.onPrimary,
