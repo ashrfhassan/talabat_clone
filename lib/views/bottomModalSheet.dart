@@ -1,25 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:talabat_clone/state/addresses/addresses_notifier.dart';
 import 'package:talabat_clone/style/colors.dart';
 import 'package:talabat_clone/style/fonts.dart';
 import 'package:talabat_clone/style/sizes.dart';
 import 'package:talabat_clone/style/spaces.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:talabat_clone/widgets/addressBottomModalSheet.dart';
 
-class BottomModalSheet extends StatelessWidget {
+class BottomModalSheet extends ConsumerStatefulWidget {
   const BottomModalSheet({super.key});
 
-  final int selectedAddressId = 1;
+  @override
+  ConsumerState<BottomModalSheet> createState() => _BottomModalSheetState();
+}
 
-  Future<SharedPreferences> _getPrefs() async {
-    return await SharedPreferences.getInstance();
+class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
+  late final Future<SharedPreferences> _prefsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the future once
+    _prefsFuture = _combinedFuture();
+  }
+
+  Future<SharedPreferences> _combinedFuture() async {
+    // Call loadAddresses() and wait for it to complete
+    await ref.read(addressesNotifierProvider.notifier).loadAddresses();
+    // Then get SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    return prefs;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _getPrefs(),
+    final addressesAsync = ref.watch(addressesNotifierProvider);
+
+    return FutureBuilder<dynamic>(
+      future: _prefsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // still loading
@@ -28,9 +48,8 @@ class BottomModalSheet extends StatelessWidget {
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
-
         // Now we have the SharedPreferences instance
-        final prefs = snapshot.data!;
+        final SharedPreferences prefs = snapshot.data!;
 
         return FractionallySizedBox(
           widthFactor: 1.0, // Occupies 100% of the screen width
@@ -80,56 +99,14 @@ class BottomModalSheet extends StatelessWidget {
                     ),
                   ]),
                   SizedBox(height: large),
-                  Row(children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: outline_grey_color, // Border color
-                              width: 1.0, // Border thickness
-                            ),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(Icons.place, size: mediumSize),
-                            Flexible(
-                              // same as expanded
-                              child: Padding(
-                                padding: EdgeInsets.only(left: xSmall),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.home_bottomSheet_subtitle,
-                                      style: fontNormalTextBlackHeavy,
-                                    ),
-                                    AutoSizeText(
-                                      'ThisIsAVeryLongWordhatNeedsBreakinghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
-                                      maxLines: 4,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: fontNormalTextGrey,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            if (selectedAddressId == 1) ...[
-                              Icon(
-                                Icons.check_circle,
-                                size: mediumSize,
-                                color: Theme.of(context).colorScheme.primary,
-                              )
-                            ]
-                          ],
-                        ),
-                      ),
-                    )
-                  ]),
+                  ...addressesAsync.when(
+                    loading: () => [const Center(child: CircularProgressIndicator())],
+                    error: (error, stackTrace) => [Text('Error: $error')],
+                    data: (addresses) {
+                      // Map each AddressEntity.
+                      return addresses.map((address) => AddressBottomModalSheet(addressEntity: address)).toList();
+                    },
+                  ),
                   Row(children: <Widget>[]),
                   Row(children: <Widget>[]),
                   Row(children: <Widget>[]),

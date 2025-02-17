@@ -1,1 +1,1 @@
-enum Status { pending, completed }
+enum Status { admin, worker }
