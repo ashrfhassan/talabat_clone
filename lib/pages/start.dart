@@ -47,9 +47,9 @@ class _StartPageState extends ConsumerState<StartPage> {
               widget.navigationShell.goBranch(index);
             },
             selectedItemColor: Theme.of(context).colorScheme.primary, // Color for the selected icon
-            unselectedItemColor: Theme.of(context).colorScheme.outline,
+            unselectedItemColor: grey_color,
             selectedLabelStyle: fontNormalTextBlackHeavy,
-            unselectedLabelStyle: fontNormalTextBlack,
+            unselectedLabelStyle: fontNormalTextBlackHeavy,
             type: BottomNavigationBarType.fixed,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

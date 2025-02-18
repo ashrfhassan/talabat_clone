@@ -14,7 +14,7 @@ class LightTheme {
         onError: white_color,
         surface: white_color,
         onSurface: dark_color,
-        outline: outline_grey_color,
+        outline: light_grey_color,
         onTertiary: text_grey_color,
       ),
       textTheme: TextTheme(
@@ -47,7 +47,7 @@ class LightTheme {
         ), // Button text
         labelSmall: TextStyle(
           fontSize: 12,
-          color: outline_grey_color,
+          color: light_grey_color,
         ),
       ),
       bottomSheetTheme: BottomSheetThemeData(

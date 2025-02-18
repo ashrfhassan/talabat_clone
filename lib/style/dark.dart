@@ -46,7 +46,7 @@ class DarkTheme {
         ), // Button text
         labelSmall: TextStyle(
           fontSize: 12,
-          color: outline_grey_color,
+          color: text_grey_color,
         ),
       ),
       bottomSheetTheme: BottomSheetThemeData(dragHandleColor: text_grey_color),

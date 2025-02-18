@@ -30,9 +30,21 @@ final fontNormalTextBlack = TextStyle(
   color: dark_color,
 );
 
-final fontNormalTextBlackHeavy = TextStyle(
+final fontNormalTextBlackLight = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w500,
+  color: dark_color,
+);
+
+final fontNormalTextBlackHeavy = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w600,
+  color: dark_color,
+);
+
+final fontNormalTextBlackHeavier = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w800,
   color: dark_color,
 );
 

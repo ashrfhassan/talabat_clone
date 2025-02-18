@@ -13,55 +13,67 @@ class AddressBottomModalSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: <Widget>[
-      Expanded(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: outline_grey_color, // Border color
-                width: 1.0, // Border thickness
-              ),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(Icons.place, size: mediumSize),
-              Flexible(
-                // same as expanded
-                child: Padding(
-                  padding: EdgeInsets.only(left: xSmall),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        addressEntity.location,
-                        style: fontNormalTextBlackHeavy,
-                      ),
-                      AutoSizeText(
-                        addressEntity.full_address,
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: fontNormalTextGrey,
-                      ),
-                    ],
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Icon(Icons.place, size: mediumSize),
+        Expanded(
+          child: SizedBox(
+            width: double.infinity,
+            child: Container(
+              margin: EdgeInsets.only(bottom: xSmallSize),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: light_grey_color, // Border color
+                    width: 0.75, // Border thickness
                   ),
                 ),
               ),
-              if (addressEntity.isPrimary) ...[
-                Icon(
-                  Icons.check_circle,
-                  size: mediumSize,
-                  color: Theme.of(context).colorScheme.primary,
-                )
-              ]
-            ],
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    // same as expanded
+                    child: Padding(
+                      padding: EdgeInsets.only(left: xSmall),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            addressEntity.location,
+                            style: fontNormalTextBlackHeavier,
+                          ),
+                          AutoSizeText(
+                            addressEntity.full_address,
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
+                            style: fontNormalTextGrey,
+                          ),
+                          SizedBox(
+                            height: xSmallSize,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (addressEntity.isPrimary) ...[
+                    Icon(
+                      Icons.check_circle,
+                      size: mediumSize,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    SizedBox(
+                      width: xSmallSize,
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
-        ),
-      )
-    ]);
+        )
+      ],
+    );
   }
 }
