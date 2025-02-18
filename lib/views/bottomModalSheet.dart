@@ -3,11 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:talabat_clone/state/addresses/addresses_notifier.dart';
-import 'package:talabat_clone/style/colors.dart';
 import 'package:talabat_clone/style/fonts.dart';
-import 'package:talabat_clone/style/sizes.dart';
 import 'package:talabat_clone/style/spaces.dart';
 import 'package:talabat_clone/widgets/addressBottomModalSheet.dart';
+import 'package:talabat_clone/widgets/circleCloseButton.dart';
 
 class BottomModalSheet extends ConsumerStatefulWidget {
   const BottomModalSheet({super.key});
@@ -68,19 +67,7 @@ class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Row(children: <Widget>[
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: const Size(0, 0),
-                        padding: EdgeInsets.all(7), // button padding
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        iconColor: Theme.of(context).colorScheme.onSurface,
-                        shape: CircleBorder(),
-                        side: BorderSide(
-                          color: light_grey_color,
-                          width: 0.7,
-                        ),
-                      ),
-                      child: Icon(Icons.close, size: mediumSize),
+                    CircleCloseButton(
                       onPressed: () => Navigator.pop(context),
                     ),
                   ]),
@@ -107,7 +94,6 @@ class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
                       return addresses.map((address) => AddressBottomModalSheet(addressEntity: address)).toList();
                     },
                   ),
-                  Row(children: <Widget>[]),
                   Row(children: <Widget>[]),
                   Row(children: <Widget>[]),
                 ],

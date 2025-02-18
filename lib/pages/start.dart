@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talabat_clone/style/colors.dart';
+import 'package:talabat_clone/style/fonts.dart';
 
 class StartPage extends ConsumerStatefulWidget {
   final StatefulNavigationShell navigationShell;
@@ -47,14 +48,8 @@ class _StartPageState extends ConsumerState<StartPage> {
             },
             selectedItemColor: Theme.of(context).colorScheme.primary, // Color for the selected icon
             unselectedItemColor: Theme.of(context).colorScheme.outline,
-            selectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.bold, // Bold font for selected item
-              fontSize: 12,
-            ),
-            unselectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.normal, // Normal font for unselected items
-              fontSize: 12,
-            ),
+            selectedLabelStyle: fontNormalTextBlackHeavy,
+            unselectedLabelStyle: fontNormalTextBlack,
             type: BottomNavigationBarType.fixed,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
