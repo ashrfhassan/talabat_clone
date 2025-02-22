@@ -16,18 +16,12 @@ class BottomModalSheet extends ConsumerStatefulWidget {
 }
 
 class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
-  late Future<SharedPreferences>? _prefsFuture;
+  late final Future<SharedPreferences>? _prefsFuture;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Initialize the future once
-      setState(() {
-        // Initialize the future once after the widget tree is built.
-        _prefsFuture = _combinedFuture();
-      });
-    });
+    _prefsFuture = _combinedFuture();
   }
 
   Future<SharedPreferences> _combinedFuture() async {
@@ -40,20 +34,6 @@ class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
 
   @override
   Widget build(BuildContext context) {
-    if (_prefsFuture == null) {
-      return FractionallySizedBox(
-        widthFactor: 1.0, // Occupies 100% of the screen width
-        child: Align(
-          heightFactor: 1.0,
-          child: SizedBox(
-            height: 100,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        ),
-      );
-    }
     final addressesAsync = ref.watch(addressesNotifierProvider);
 
     return FutureBuilder<dynamic>(
@@ -124,6 +104,7 @@ class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
             ),
           ),
           data: (addresses) {
+            print(addresses);
             return FractionallySizedBox(
               widthFactor: 1.0, // Occupies 100% of the screen width
               child: Align(
