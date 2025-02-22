@@ -104,7 +104,6 @@ class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
             ),
           ),
           data: (addresses) {
-            print(addresses);
             return FractionallySizedBox(
               widthFactor: 1.0, // Occupies 100% of the screen width
               child: Align(
