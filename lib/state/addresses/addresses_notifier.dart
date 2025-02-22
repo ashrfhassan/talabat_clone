@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:talabat_clone/data_layer/address_model/address_entity.dart';
 import 'package:talabat_clone/data_layer/address_model/address_repository.dart';
@@ -21,6 +22,7 @@ class AddressesNotifier extends _$AddressesNotifier {
       state = AsyncValue.data(addresses); // Update state
     } catch (error, stackTrace) {
       state = AsyncValue.error(error, stackTrace); // Handle errors properly
+      rethrow;
     }
   }
 }

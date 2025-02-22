@@ -15,5 +15,7 @@
   "home_bottomSheet_headline": "اختر مكان التوصيل",
   "@home_bottomSheet_headline": {},
   "home_bottomSheet_subtitle": "العناويين المسجله",
-  "@home_bottomSheet_subtitle": {}
+  "@home_bottomSheet_subtitle": {},
+  "errors_home_bottomSheet_load_addresses": "خطأ فى تحميل العناويين.حاول مره اخرى",
+  "@errors_home_bottomSheet_load_addresses": {}
 }

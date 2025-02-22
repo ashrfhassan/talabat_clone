@@ -16,13 +16,18 @@ class BottomModalSheet extends ConsumerStatefulWidget {
 }
 
 class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
-  late final Future<SharedPreferences> _prefsFuture;
+  late Future<SharedPreferences>? _prefsFuture;
 
   @override
   void initState() {
     super.initState();
-    // Initialize the future once
-    _prefsFuture = _combinedFuture();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Initialize the future once
+      setState(() {
+        // Initialize the future once after the widget tree is built.
+        _prefsFuture = _combinedFuture();
+      });
+    });
   }
 
   Future<SharedPreferences> _combinedFuture() async {
@@ -35,6 +40,20 @@ class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
 
   @override
   Widget build(BuildContext context) {
+    if (_prefsFuture == null) {
+      return FractionallySizedBox(
+        widthFactor: 1.0, // Occupies 100% of the screen width
+        child: Align(
+          heightFactor: 1.0,
+          child: SizedBox(
+            height: 100,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ),
+      );
+    }
     final addressesAsync = ref.watch(addressesNotifierProvider);
 
     return FutureBuilder<dynamic>(
@@ -42,64 +61,114 @@ class _BottomModalSheetState extends ConsumerState<BottomModalSheet> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // still loading
-          return const Center(child: CircularProgressIndicator());
+          return FractionallySizedBox(
+            widthFactor: 1.0, // Occupies 100% of the screen width
+            child: Align(
+              heightFactor: 1.0,
+              child: SizedBox(
+                height: 100,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
+          );
         }
+        // handles _combinedFuture
         if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return FractionallySizedBox(
+            widthFactor: 1.0, // Occupies 100% of the screen width
+            child: Align(
+              heightFactor: 1.0,
+              child: SizedBox(
+                height: 100,
+                child: Center(
+                  child: Text(
+                    'Snapshot: ${AppLocalizations.of(context)!.errors_home_bottomSheet_load_addresses}',
+                    style: fontNormalTextBlackHeavier,
+                  ),
+                ),
+              ),
+            ),
+          );
         }
         // Now we have the SharedPreferences instance
         final SharedPreferences prefs = snapshot.data!;
 
-        return FractionallySizedBox(
-          widthFactor: 1.0, // Occupies 100% of the screen width
-          child: Align(
-            heightFactor: 1.0,
-            child: Container(
-              margin: const EdgeInsets.only(left: 15.0),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
+        return addressesAsync.when(
+          loading: () => FractionallySizedBox(
+            widthFactor: 1.0, // Occupies 100% of the screen width
+            child: Align(
+              heightFactor: 1.0,
+              child: SizedBox(
+                height: 100,
+                child: const Center(
+                  child: CircularProgressIndicator(),
                 ),
-                color: Theme.of(context).colorScheme.surface, // Background color of the BottomNavigationBar
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Row(children: <Widget>[
-                    CircleCloseButton(
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                  ]),
-                  SizedBox(height: small),
-                  Row(children: <Widget>[
-                    Text(
-                      AppLocalizations.of(context)!.home_bottomSheet_headline,
-                      style: fontHeadlineBlack,
-                    ),
-                  ]),
-                  SizedBox(height: large),
-                  Row(children: <Widget>[
-                    Text(
-                      AppLocalizations.of(context)!.home_bottomSheet_subtitle,
-                      style: fontSubtitleBlack,
-                    ),
-                  ]),
-                  SizedBox(height: large),
-                  ...addressesAsync.when(
-                    loading: () => [const Center(child: CircularProgressIndicator())],
-                    error: (error, stackTrace) => [Text('Error: $error')],
-                    data: (addresses) {
-                      // Map each AddressEntity.
-                      return addresses.map((address) => AddressBottomModalSheet(addressEntity: address)).toList();
-                    },
-                  ),
-                  Row(children: <Widget>[]),
-                  Row(children: <Widget>[]),
-                ],
               ),
             ),
           ),
+          error: (error, stackTrace) => FractionallySizedBox(
+            widthFactor: 1.0, // Occupies 100% of the screen width
+            child: Align(
+              heightFactor: 1.0,
+              child: SizedBox(
+                height: 100,
+                child: Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.errors_home_bottomSheet_load_addresses,
+                    style: fontNormalTextBlackHeavier,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          data: (addresses) {
+            return FractionallySizedBox(
+              widthFactor: 1.0, // Occupies 100% of the screen width
+              child: Align(
+                heightFactor: 1.0,
+                child: Container(
+                  margin: const EdgeInsets.only(left: 15.0),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
+                    color: Theme.of(context).colorScheme.surface, // Background color of the BottomNavigationBar
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Row(children: <Widget>[
+                        CircleCloseButton(
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ]),
+                      SizedBox(height: small),
+                      Row(children: <Widget>[
+                        Text(
+                          AppLocalizations.of(context)!.home_bottomSheet_headline,
+                          style: fontHeadlineBlack,
+                        ),
+                      ]),
+                      SizedBox(height: large),
+                      Row(children: <Widget>[
+                        Text(
+                          AppLocalizations.of(context)!.home_bottomSheet_subtitle,
+                          style: fontSubtitleBlack,
+                        ),
+                      ]),
+                      SizedBox(height: large),
+                      ...addresses.map((address) => AddressBottomModalSheet(addressEntity: address)),
+                      Row(children: <Widget>[]),
+                      Row(children: <Widget>[]),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         );
       },
     );

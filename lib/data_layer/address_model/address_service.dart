@@ -1,5 +1,3 @@
-import 'package:talabat_clone/data_layer/address_model/address_entity.dart';
-
 class AddressService {
   Future<List<Map<String, dynamic>>> getAddressesApi() async {
     await Future.delayed(Duration(seconds: 3));
